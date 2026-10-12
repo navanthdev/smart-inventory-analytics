@@ -85,3 +85,22 @@ Built an end-to-end retail analytics workflow that combines Python data preparat
 ### Customer Insights
 
 ![Customer Insights](screenshots/customer_insights.JPG)
+
+
+![Customer Insights](screenshots/customer_insights.JPG)
+
+## API Endpoints
+
+| Endpoint | Description |
+|---|---|
+| `GET /test` | Verify database connectivity |
+| `GET /products` | Retrieve the top 10 products by revenue |
+| `GET /product/{stock_id}` | Retrieve a product transaction |
+| `GET /product_summary/{stock_id}` | Retrieve product-level quantity and revenue summaries |
+| `GET /sales_summary` | Retrieve overall sales metrics |
+| `GET /country_revenue/{country}` | Retrieve revenue for a country |
+| `GET /monthly_sales` | Retrieve monthly revenue |
+| `GET /country_summary` | Retrieve top countries by revenue |
+| `GET /top_customers` | Retrieve top customers by revenue |
+
+
