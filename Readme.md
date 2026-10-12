@@ -80,8 +80,8 @@ Built an end-to-end retail analytics workflow that combines Python data preparat
 
 ### Sales & Revenue Analysis
 
-![Sales and Revenue Analysis](screenshots/sales_revenue.jpg)
+![Sales and Revenue Analysis](screenshots/sales_revenue.JPG)
 
 ### Customer Insights
 
-![Customer Insights](screenshots/customer_insights.jpg)
+![Customer Insights](screenshots/customer_insights.JPG)
