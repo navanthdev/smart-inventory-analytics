@@ -7,3 +7,4 @@ sqlalchemy
 pymysql
 fastapi
 uvicorn
+python-dotenv
