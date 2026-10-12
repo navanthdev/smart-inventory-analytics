@@ -75,3 +75,13 @@ This project uses historical transaction data. It does not currently contain act
 
 ## Project Outcome
 Built an end-to-end retail analytics workflow that combines Python data preparation, MySQL storage and analysis, and Power BI reporting to explore historical sales and customer performance.
+
+## Dashboard Screenshots
+
+### Sales & Revenue Analysis
+
+![Sales and Revenue Analysis](screenshots/sales_revenue.png)
+
+### Customer Insights
+
+![Customer Insights](screenshots/customer_insights.png)
