@@ -87,8 +87,6 @@ Built an end-to-end retail analytics workflow that combines Python data preparat
 ![Customer Insights](screenshots/customer_insights.JPG)
 
 
-![Customer Insights](screenshots/customer_insights.JPG)
-
 ## API Endpoints
 
 | Endpoint | Description |
