@@ -1,104 +1,221 @@
 # Smart Inventory & Sales Analytics
 
-## Project Overview
-A data analytics project that transforms retail transaction data into actionable business insights using Python, MySQL, and Power BI. The project focuses on sales performance, product revenue, customer behavior, and country-wise sales analysis.
+An end-to-end retail analytics project that transforms raw transaction data into structured datasets, SQL-driven business insights, interactive Power BI dashboards, and API-accessible analytics.
 
-## Business Problem
-Retail businesses need to understand which products generate the most revenue, how sales change over time, which countries contribute most to sales, and which customers generate the highest recorded revenue.
+**Tech Stack:** Python · Pandas · NumPy · MySQL · SQL · SQLAlchemy · Power BI · DAX · FastAPI
 
-This project analyzes historical retail transactions to support data-driven business decisions.
+**GitHub Repository:** [Smart Inventory Analytics](https://github.com/navanthdev/smart-inventory-analytics)
 
-## Dataset
-- **Dataset:** UCI Online Retail
-- **Original file:** `Online Retail.xlsx`
-- **Cleaned transaction rows:** 536,641
-- **Distinct invoices:** 25,900
+---
 
-The dataset contains invoice numbers, product codes, product descriptions, quantities, invoice dates, unit prices, customer IDs, and countries.
+## 1. Business Problem
 
-## Technologies Used
-- **Python:** Data processing, cleaning, and exploratory data analysis (EDA)
-- **pandas:** Data manipulation and analysis
-- **Matplotlib:** Data visualization and trend analysis
-- **Seaborn:** Statistical data visualization and distribution analysis
-- **MySQL:** Relational data storage and SQL-based analysis
-- **Power BI:** Interactive dashboards and business reporting
-- **DAX:** Customer revenue measures and segmentation
+Retail businesses generate large volumes of transaction data, but raw data often contains missing values, duplicate records, returns, and inconsistencies.
 
-## Data Processing
-- Inspected data types and missing values.
-- Removed exact duplicate records.
-- Calculated transaction revenue from quantity and unit price.
-- Examined missing customer IDs, returns, negative quantities, and unusual price values.
-- Loaded the cleaned transaction dataset into MySQL.
+Without proper processing and analysis, it becomes difficult to:
 
-## SQL Analysis
-- Total recorded revenue and invoice counts
-- Monthly revenue trends
-- Top-performing products by revenue
-- Country-wise revenue comparisons
-- Customer-level revenue analysis
+- Identify top-performing products.
+- Monitor monthly sales trends.
+- Compare revenue across countries.
+- Understand customer-level revenue and value segments.
+- Convert historical transactions into useful business insights.
 
-## Power BI Dashboard
+This project analyzes historical retail transactions to support data-driven sales and customer analysis.
+
+## 2. Solution Overview
+
+Built an end-to-end analytics workflow connecting data preparation, database integration, SQL analysis, business intelligence, and API development.
+
+### Pipeline Architecture
+
+```text
+Raw Retail Dataset
+        |
+        v
+Python Data Processing & ETL
+(Pandas, NumPy)
+        |
+        v
+Cleaned Transaction Dataset
+        |
+        v
+MySQL Database
+(SQLAlchemy)
+        |
+        v
+SQL Business Analysis
+(Aggregations, CTEs, Date Analysis)
+        |
+        +-------------------+
+        |                   |
+        v                   v
+Power BI Dashboards     FastAPI Endpoints
+(DAX & Visualization)   (Analytical Data Access)
+```
+
+The workflow supports historical retail sales analysis. It is not currently a real-time inventory management system.
+
+## 3. Dataset
+
+**Dataset:** UCI Online Retail  
+**Original File:** `Online Retail.xlsx`
+
+The dataset contains:
+
+- Invoice numbers
+- Product codes and descriptions
+- Quantities
+- Invoice dates
+- Unit prices
+- Customer IDs
+- Countries
+
+### Dataset Scale
+
+| Metric | Value |
+|---|---:|
+| Cleaned transaction rows | 536,641 |
+| Distinct invoices | 25,900 |
+| Total recorded transaction revenue | 9,726,006.95 |
+
+Revenue is calculated as quantity × unit price from the cleaned transaction records, including returns and negative-quantity rows.
+
+## 4. Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Python | Data processing and analysis |
+| Pandas | Data cleaning and manipulation |
+| NumPy | Numerical operations |
+| Matplotlib | Data visualization |
+| Seaborn | Statistical visualization |
+| MySQL | Relational data storage |
+| SQL | Business analysis and aggregations |
+| SQLAlchemy | Database connectivity |
+| Power BI | Interactive dashboards |
+| DAX | Analytical measures |
+| FastAPI | REST API development |
+| Git & GitHub | Version control and project hosting |
+
+## 5. Data Processing & ETL
+
+The data preparation workflow includes:
+
+1. Inspecting dataset structure, data types, and missing values.
+2. Identifying and removing exact duplicate records.
+3. Investigating missing customer IDs and product descriptions.
+4. Examining returns, negative quantities, and unusual unit prices.
+5. Calculating transaction revenue from quantity and unit price.
+6. Preparing the cleaned dataset for database loading.
+7. Loading the processed data into MySQL using Pandas and SQLAlchemy.
+8. Validating database row counts and analytical totals against the cleaned dataset.
+
+Data quality issues were investigated rather than automatically treating every negative quantity or missing customer ID as invalid.
+
+## 6. SQL Business Analysis
+
+SQL was used to explore business questions such as:
+
+- What is the total recorded transaction revenue?
+- How does revenue change month over month?
+- Which products generate the highest revenue?
+- Which countries contribute the most revenue?
+- Which customers have the highest recorded revenue?
+- How can customers be grouped by recorded revenue?
+
+The analysis uses SQL aggregations, grouping, date-based analysis, and Common Table Expressions (CTEs).
+
+## 7. Power BI Dashboards
+
 ### Sales & Revenue Analysis
+
+The sales dashboard focuses on:
+
 - Total recorded revenue
 - Distinct invoice count
 - Unique customer count
-- Net recorded quantity
-- Monthly revenue trend
+- Recorded quantity
+- Monthly revenue trends
 - Top 10 products by revenue
-- Top 10 countries by revenue
-- Top 10 customers by recorded revenue
-- Date and country slicers
+- Top countries by revenue
+- Top customers by recorded revenue
+- Date and country filters
 
 ### Customer Insights
-- Unique customers by country
-- Customer revenue segments: High Value, Medium Value, Low Value, and Zero or Negative
 
-## Data Validation
-The loaded MySQL table was verified against the cleaned dataset.
+The customer analysis focuses on:
 
-| Metric | Verified value |
+- Customer distribution by country
+- Customer revenue segments
+- Customer-level revenue comparisons
+
+Customer segment counts and percentages use distinct customer counts rather than summing customer IDs.
+
+### Dashboard Screenshots
+
+**Sales Dashboard**
+
+![Sales and Revenue Analysis](screenshots/sales_dashboard.jpg)
+
+## 8. FastAPI Endpoints
+
+The application exposes endpoints for retrieving selected sales and product analytics.
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/test` | Test database connectivity |
+| GET | `/products` | Retrieve the first 10 transaction rows |
+| GET | `/product_summary` | Retrieve top 10 customer-product groups by revenue |
+| GET | `/product/{stock_id}` | Retrieve a product transaction by stock code |
+| GET | `/product_summary/{stock_id}` | Retrieve product quantity and revenue summaries |
+| GET | `/sales_summary` | Retrieve overall sales metrics |
+| GET | `/country_revenue/{country}` | Retrieve revenue for a country |
+| GET | `/monthly_sales` | Retrieve monthly revenue |
+| GET | `/country_summary` | Retrieve top 10 countries by revenue |
+| GET | `/top_customers` | Retrieve top 10 customers by revenue |
+
+## 9. Data Validation
+
+The loaded MySQL table was validated against the cleaned dataset.
+
+| Validation Metric | Expected Value |
 |---|---:|
 | Transaction rows | 536,641 |
 | Distinct invoices | 25,900 |
-| Total recorded revenue | 9,726,006.95 |
+| Total recorded transaction revenue | 9,726,006.95 |
 
-## Limitations
-This project uses historical transaction data. It does not currently contain actual stock-on-hand quantities, reorder thresholds, or live inventory updates. Therefore, it supports sales and customer analytics rather than real-time inventory management.
+## 10. Project Limitations
 
-## Future Improvements
-- Develop a FastAPI service to expose selected analytics.
-- Automate data ingestion and refresh workflows.
-- Add inventory-on-hand and reorder-point data.
-- Introduce scheduled Power BI refresh and additional business KPIs.
+- The dataset contains historical retail transactions.
+- It does not contain actual stock-on-hand quantities or reorder thresholds.
+- The workflow does not currently provide real-time inventory updates.
+- Automated scheduling and orchestration are not implemented.
+- Revenue includes returns and negative-quantity rows unless a later filter is applied.
 
-## Project Outcome
-Built an end-to-end retail analytics workflow that combines Python data preparation, MySQL storage and analysis, and Power BI reporting to explore historical sales and customer performance.
+## 11. Future Improvements
 
-## Dashboard Screenshots
+Potential extensions include:
 
-### Sales & Revenue Analysis
+- Automating repeatable data ingestion and transformation.
+- Adding pipeline logging, error handling, and data quality checks.
+- Implementing incremental database loading.
+- Scheduling data refreshes and monitoring pipeline failures.
+- Integrating stock-on-hand and reorder-point data for inventory analysis.
+- Expanding analytical KPIs and dashboard drill-through capabilities.
+- Adding automated tests for API endpoints and data validation.
 
-![Sales and Revenue Analysis](screenshots/sales_revenue.JPG)
+## 12. Project Outcome
 
-### Customer Insights
+Developed an integrated retail analytics workflow combining Python-based data preparation, MySQL storage, SQL business analysis, Power BI reporting, and FastAPI endpoints.
 
-![Customer Insights](screenshots/customer_insights.JPG)
+The project demonstrates practical experience across multiple stages of the analytics lifecycle, from data cleaning and database integration to business intelligence and API development.
 
+## 13. Author
 
-## API Endpoints
+**Navanth Bhumireddy**
 
-| Endpoint | Description |
-|---|---|
-| `GET /test` | Verify database connectivity |
-| `GET /products` | Retrieve the top 10 products by revenue |
-| `GET /product/{stock_id}` | Retrieve a product transaction |
-| `GET /product_summary/{stock_id}` | Retrieve product-level quantity and revenue summaries |
-| `GET /sales_summary` | Retrieve overall sales metrics |
-| `GET /country_revenue/{country}` | Retrieve revenue for a country |
-| `GET /monthly_sales` | Retrieve monthly revenue |
-| `GET /country_summary` | Retrieve top countries by revenue |
-| `GET /top_customers` | Retrieve top customers by revenue |
+GitHub: [navanthdev](https://github.com/navanthdev)
 
+---
 
+*This project was developed for learning and portfolio demonstration using historical retail transaction data.*
